@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, send_from_directory
+from flask import Flask, request, render_template, send_file
 from flaskwebgui import FlaskUI
 from faster_whisper import WhisperModel
 import tempfile
@@ -49,7 +49,7 @@ def transcribe_video(file_stream, model_size="medium", device="cpu"):
     """
     try:
         # Initialize the WhisperModel with specified model size and device
-        model = WhisperModel(model_size, device=device, cpu_threads=12, compute_type="int8")
+        model = WhisperModel(model_size, device=device, cpu_threads=8, compute_type="int8")
         
         # Create a temporary file to hold the uploaded video
         with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
@@ -113,7 +113,6 @@ def write_srt_file(segments, info, filename):
     except IOError as e:
         print(f"Error writing to SRT file: {e}")
         
-# Main Function
 @app.route('/', methods=['GET', 'POST'])
 def index():
     """
@@ -140,14 +139,15 @@ def index():
                 # Generate SRT file in the /output directory
                 write_srt_file(segments, info, uploaded_file.filename)
                 srt_filename = os.path.splitext(uploaded_file.filename)[0] + '.srt'
+                # Construct the full path to the SRT file
+                srt_file_path = os.path.join('output', srt_filename)
                 # Return the SRT file for download
-                return send_from_directory(directory='output', filename=srt_filename, as_attachment=True, download_name=srt_filename)
+                return send_file(srt_file_path, as_attachment=True)
             else:
                 return "Failed to transcribe video."
         else:
             return "No file uploaded."
     return render_template('index.html')
-
 if __name__ == '__main__':
     app.run(debug=True)
     # FlaskUI(app=app, server="flask").run()
