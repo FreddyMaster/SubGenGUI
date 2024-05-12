@@ -4,7 +4,7 @@ SubGenGUI is a user-friendly graphical interface designed to simplify the proces
 
 ## Description
 
-SubGenGUI leverages advanced algorithms to ensure high accuracy in subtitle generation, offering support for multiple languages. This tool is perfect for content creators, video editors, and anyone in need of quick and reliable subtitle generation. With its intuitive design, SubGenGUI streamlines the subtitle creation process, allowing users to focus on producing quality content.
+SubGenGUI integrates the powerful https://github.com/SYSTRAN/faster-whisper technology to enhance its subtitle generation capabilities, ensuring even higher accuracy across a wide range of languages. This tool is ideal for content creators, video editors, and anyone looking for a fast and dependable way to generate subtitles. Its user-friendly interface simplifies the subtitle creation process, enabling users to concentrate on crafting quality content while leveraging advanced algorithms for optimal results.
 
 ## Features
 
